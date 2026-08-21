@@ -3,6 +3,7 @@ import "./Navbar.css";
 function Navbar() {
   return (
     <nav className="navbar">
+        <button className="menu-button">☰</button>
       <div className="navbar-logo">SHOP.Co</div>
 
       <div className="navbar-links">
