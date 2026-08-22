@@ -1,0 +1,60 @@
+.hero {
+  width: 100%;
+  min-height: 550px;
+
+  background-color: blanchedalmond;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  line-height: 1;
+  font: 900;
+  margin-bottom: 25px;
+}
+
+.hero p {
+  max-width: 550px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
+.hero button {
+  width: 210px;
+  height: 50px;
+
+  border: none;
+  border-radius: 25px;
+
+  background-color: cadetblue;
+  color: azure;
+
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 20px;
+  margin-top: 45px;
+}
+
+.hero-stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stats strong {
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.hero-stats span {
+  color: #666;
+  font-size: 13px;
+  margin-top: 5px;
+}
