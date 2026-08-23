@@ -1,0 +1,45 @@
+.top-selling{
+    width: 100%;
+    padding: 70px 5%;
+    border-top: 1px solid #333;
+}
+
+.top-selling h2{
+    text-align: center;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 45px;
+}
+
+.top-selling .product-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.top-selling .view-all-button{
+    display: block;
+    margin: 50px auto 0;
+    width: 210px;
+    height: 50px;
+    border: 1px solid #333;
+    border-radius: 25px;;
+    background-color: #333;
+    cursor: pointer;
+}
+
+@media (max-width: 768px){
+    .top-selling{
+        padding: 50px 20px;
+    }
+
+    .top-selling h2{
+        margin-bottom: 30px;
+        font-size: 28px;
+    }
+
+    .top-selling .product-grid{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}

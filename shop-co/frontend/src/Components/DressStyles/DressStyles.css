@@ -1,0 +1,83 @@
+.dress-styles{
+    width: 100%;
+    margin: 70px auto;
+    padding: 60px 5%;
+    
+    background-color: cadetblue;
+    border-radius: 25px;
+}
+
+.dress-styles h2{
+    text-align: center;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 45px;
+}
+
+dress-card{
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    background-color: aliceblue;
+    padding: 30px;
+    display: flex;
+    align-items:flex-start;
+}
+
+.dress-card h3{
+    position: relative;
+    z-index: 2;
+    font-size: 28px;
+}
+
+.dress-grid{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 220px 220px;
+    gap: 20px;
+}
+
+.casual{
+    grid-column: 1;
+    background-color: aquamarine;
+}
+
+.formal{
+    grid-column: 2;
+    background-color:lightblue
+}
+
+.party{
+    grid-column: 1;
+    background-color:wheat;
+} 
+
+.gym{
+    grid-column: 2;
+    background-color:lightsalmon;
+}
+
+@media (max-width: 768px){
+    .dress-stylea{
+        width: calc(100% - 40px);
+        margin: 50px auto;
+        padding: 40px 20px;
+    }
+
+    .dress-stylea h2{
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .dress-grid{
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 180px);
+    }
+
+    .casual,
+    .formal,
+    .party,
+    .gym{
+        grid-column: 1;
+    }
+}

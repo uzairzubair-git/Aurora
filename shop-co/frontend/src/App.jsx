@@ -1,14 +1,13 @@
-import AnnouncementBar from "./Components/AnnouncementBar/AnnouncementBar";
-import Navbar from "./Components/Navbar/Navbar";
-// import Hero from "./Components/Hero/Hero.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home/Home";
 
 function App() {
   return (
-    <div>
-      <AnnouncementBar />
-      <Navbar />
-      <Hero />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
