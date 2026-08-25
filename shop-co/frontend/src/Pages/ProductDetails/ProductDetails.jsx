@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
 import { useCart } from "../../context/context.jsx";
 import products from "../../data/products";
@@ -7,39 +7,49 @@ import products from "../../data/products";
 import "./ProductDetails.css";
 
 function ProductDetails() {
-  // Get product ID from the URL
   const { id } = useParams();
 
-  // Find the product
-  const product = products.find((item) => item.id === Number(id));
+  const { setCartItems } = useCart();
 
-  // Product states
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
 
-  // Cart
-  const { setCartItems } = useCart();
+  // Find product from URL
+  const product = products.find((item) => item.id === Number(id));
 
   // Product doesn't exist
   if (!product) {
-    return <h1>Product not found</h1>;
+    return (
+      <main className="product-not-found">
+        <h1>Product Not Found</h1>
+
+        <p>Sorry, we couldn't find this product.</p>
+
+        <Link to="/shop">Back to Shop</Link>
+      </main>
+    );
   }
 
   // Increase quantity
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    setQuantity((previousQuantity) => previousQuantity + 1);
   };
 
   // Decrease quantity
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+    setQuantity((previousQuantity) =>
+      previousQuantity > 1 ? previousQuantity - 1 : 1,
+    );
   };
 
-  // Add product to cart
+  // Add to cart
   const addToCart = () => {
+    if (!selectedSize || !selectedColor) {
+      alert("Please select a size and color.");
+      return;
+    }
+
     const cartProduct = {
       ...product,
       quantity,
@@ -51,88 +61,150 @@ function ProductDetails() {
   };
 
   return (
-    <main className="product-details">
-      {/* Product Image */}
-      <div className="product-details-image">
-        <img src={product.image} alt={product.name} />
+    <main className="product-details-page">
+      {/* Breadcrumb */}
+      <div className="product-breadcrumb">
+        <Link to="/">Home</Link>
+
+        <span>/</span>
+
+        <Link to="/shop">Shop</Link>
+
+        <span>/</span>
+
+        <span>{product.name}</span>
       </div>
 
-      {/* Product Information */}
-      <div className="product-details-info">
-        <h1>{product.name}</h1>
+      <section className="product-details">
+        {/* Product Image */}
+        <div className="product-details-image">
+          <div className="product-image-wrapper">
+            <img src={product.image} alt={product.name} />
 
-        {/* Rating */}
-        <div className="product-details-rating">
-          <span>★★★★★</span>
-          <span>{product.rating}/5</span>
+            {product.badge && (
+              <span className="product-details-badge">{product.badge}</span>
+            )}
+          </div>
         </div>
 
-        {/* Price */}
-        <h2>${product.price}</h2>
+        {/* Product Information */}
+        <div className="product-details-info">
+          <p className="product-details-category">{product.category}</p>
 
-        {/* Description */}
-        <p className="product-description">
-          This product is designed with high-quality materials and a modern
-          style that fits your everyday wardrobe.
-        </p>
+          <h1>{product.name}</h1>
 
-        <hr />
+          {/* Rating */}
+          <div className="product-rating">
+            <span className="stars">★★★★★</span>
 
-        {/* Colors */}
-        <p>Select Color</p>
-
-        <div className="color-options">
-          <button
-            className="color black"
-            onClick={() => setSelectedColor("Black")}
-            aria-label="Black"
-          ></button>
-
-          <button
-            className="color white"
-            onClick={() => setSelectedColor("White")}
-            aria-label="White"
-          ></button>
-
-          <button
-            className="color green"
-            onClick={() => setSelectedColor("Green")}
-            aria-label="Green"
-          ></button>
-        </div>
-
-        <p>Selected color: {selectedColor || "None"}</p>
-
-        {/* Sizes */}
-        <p>Select Size</p>
-
-        <div className="size-options">
-          <button onClick={() => setSelectedSize("Small")}>Small</button>
-
-          <button onClick={() => setSelectedSize("Medium")}>Medium</button>
-
-          <button onClick={() => setSelectedSize("Large")}>Large</button>
-
-          <button onClick={() => setSelectedSize("X-Large")}>X-Large</button>
-        </div>
-
-        <p>Selected size: {selectedSize || "None"}</p>
-
-        {/* Quantity + Cart */}
-        <div className="cart-controls">
-          <div className="quantity">
-            <button onClick={decreaseQuantity}>-</button>
-
-            <span>{quantity}</span>
-
-            <button onClick={increaseQuantity}>+</button>
+            <span>{product.rating || "4.5"}/5</span>
           </div>
 
-          <button className="add-cart" onClick={addToCart}>
-            Add to Cart
-          </button>
+          {/* Price */}
+          <div className="product-details-price">
+            <strong>${product.price}</strong>
+
+            {product.oldPrice && <del>${product.oldPrice}</del>}
+          </div>
+
+          {/* Description */}
+          <p className="product-description">
+            This product is made with high-quality materials and designed for
+            comfort, style, and everyday use.
+          </p>
+
+          <hr />
+
+          {/* Color */}
+          <div className="product-option">
+            <h3>Select Color</h3>
+
+            <div className="color-options">
+              <button
+                type="button"
+                aria-label="Black"
+                className={`color-option black ${
+                  selectedColor === "Black" ? "active" : ""
+                }`}
+                onClick={() => setSelectedColor("Black")}
+              />
+
+              <button
+                type="button"
+                aria-label="White"
+                className={`color-option white ${
+                  selectedColor === "White" ? "active" : ""
+                }`}
+                onClick={() => setSelectedColor("White")}
+              />
+
+              <button
+                type="button"
+                aria-label="Green"
+                className={`color-option green ${
+                  selectedColor === "Green" ? "active" : ""
+                }`}
+                onClick={() => setSelectedColor("Green")}
+              />
+            </div>
+
+            <p className="selected-option">
+              {selectedColor
+                ? `Selected: ${selectedColor}`
+                : "Please select a color"}
+            </p>
+          </div>
+
+          {/* Size */}
+          <div className="product-option">
+            <h3>Select Size</h3>
+
+            <div className="size-options">
+              {["Small", "Medium", "Large", "X-Large"].map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  className={`size-option ${
+                    selectedSize === size ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+
+            <p className="selected-option">
+              {selectedSize
+                ? `Selected: ${selectedSize}`
+                : "Please select a size"}
+            </p>
+          </div>
+
+          {/* Quantity + Add Cart */}
+          <div className="product-actions">
+            <div className="product-quantity">
+              <button type="button" onClick={decreaseQuantity}>
+                −
+              </button>
+
+              <span>{quantity}</span>
+
+              <button type="button" onClick={increaseQuantity}>
+                +
+              </button>
+            </div>
+
+            <button
+              type="button"
+              className="add-to-cart-button"
+              onClick={addToCart}
+            >
+              Add to Cart
+            </button>
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

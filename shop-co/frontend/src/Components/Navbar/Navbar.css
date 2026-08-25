@@ -65,6 +65,34 @@
     cursor: pointer;
 }
 
+.cart-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  min-width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #000;
+  color: #fff;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
 @media (max-width:768px){
     .navbar{
         padding: 0 20px;
