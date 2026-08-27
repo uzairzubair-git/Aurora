@@ -1,26 +1,25 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useCart } from "../../context/context.jsx";
-import "./Checkout.css";
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useCart } from '../../context/context.jsx';
+import './Checkout.css';
 
 function Checkout() {
   const { cartItems } = useCart();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    postalCode: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    postalCode: '',
   });
 
   const subtotal = cartItems.reduce(
-    (total, item) =>
-      total + Number(item.price) * Number(item.quantity),
-    0
+    (total, item) => total + Number(item.price) * Number(item.quantity),
+    0,
   );
 
   const deliveryFee = cartItems.length > 0 ? 15 : 0;
@@ -36,14 +35,41 @@ function Checkout() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Customer:", formData);
-    console.log("Order:", cartItems);
-    console.log("Total:", total);
+    try {
+      const orderData = {
+        customerName: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        items: cartItems,
+        total: total,
+      };
 
-    navigate("/order-success");
+      const response = await fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to place order');
+      }
+
+      const createdOrder = await response.json();
+
+      console.log('Order created:', createdOrder);
+
+      // Clear the cart after successful order
+      setCartItems([]);
+
+      navigate('/order-success');
+    } catch (error) {
+      console.error('Order error:', error);
+      alert('Something went wrong while placing your order.');
+    }
   };
 
   // Empty cart
@@ -53,13 +79,9 @@ function Checkout() {
         <div className="empty-checkout">
           <h1>Your cart is empty</h1>
 
-          <p>
-            Add some products before checking out.
-          </p>
+          <p>Add some products before checking out.</p>
 
-          <Link to="/shop">
-            Continue Shopping
-          </Link>
+          <Link to="/shop">Continue Shopping</Link>
         </div>
       </main>
     );
@@ -67,33 +89,23 @@ function Checkout() {
 
   return (
     <main className="checkout-page">
-
       <div className="checkout-header">
         <h1>Checkout</h1>
 
-        <p>
-          Complete your information to place your order.
-        </p>
+        <p>Complete your information to place your order.</p>
       </div>
 
       <div className="checkout-layout">
-
         {/* =========================
             BILLING FORM
         ========================== */}
 
-        <form
-          className="checkout-form"
-          onSubmit={handleSubmit}
-        >
+        <form className="checkout-form" onSubmit={handleSubmit}>
           <h2>Billing Information</h2>
 
           <div className="form-row">
-
             <div className="form-group">
-              <label htmlFor="firstName">
-                First Name
-              </label>
+              <label htmlFor="firstName">First Name</label>
 
               <input
                 id="firstName"
@@ -107,9 +119,7 @@ function Checkout() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="lastName">
-                Last Name
-              </label>
+              <label htmlFor="lastName">Last Name</label>
 
               <input
                 id="lastName"
@@ -121,13 +131,10 @@ function Checkout() {
                 required
               />
             </div>
-
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">
-              Email Address
-            </label>
+            <label htmlFor="email">Email Address</label>
 
             <input
               id="email"
@@ -141,9 +148,7 @@ function Checkout() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="phone">
-              Phone Number
-            </label>
+            <label htmlFor="phone">Phone Number</label>
 
             <input
               id="phone"
@@ -157,9 +162,7 @@ function Checkout() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="address">
-              Address
-            </label>
+            <label htmlFor="address">Address</label>
 
             <input
               id="address"
@@ -173,11 +176,8 @@ function Checkout() {
           </div>
 
           <div className="form-row">
-
             <div className="form-group">
-              <label htmlFor="city">
-                City
-              </label>
+              <label htmlFor="city">City</label>
 
               <input
                 id="city"
@@ -191,9 +191,7 @@ function Checkout() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="postalCode">
-                Postal Code
-              </label>
+              <label htmlFor="postalCode">Postal Code</label>
 
               <input
                 id="postalCode"
@@ -205,16 +203,11 @@ function Checkout() {
                 required
               />
             </div>
-
           </div>
 
-          <button
-            type="submit"
-            className="place-order-button"
-          >
+          <button type="submit" className="place-order-button">
             Place Order
           </button>
-
         </form>
 
         {/* =========================
@@ -222,59 +215,30 @@ function Checkout() {
         ========================== */}
 
         <aside className="checkout-summary">
-
           <h2>Your Order</h2>
 
           <div className="checkout-items">
-
             {cartItems.map((item, index) => (
-              <div
-                className="checkout-item"
-                key={`${item.id}-${index}`}
-              >
-
+              <div className="checkout-item" key={`${item.id}-${index}`}>
                 <div className="checkout-item-image">
+                  <img src={item.image} alt={item.name} />
 
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                  />
-
-                  <span>
-                    {item.quantity}
-                  </span>
-
+                  <span>{item.quantity}</span>
                 </div>
 
                 <div className="checkout-item-info">
-
                   <h3>{item.name}</h3>
 
-                  {item.selectedSize && (
-                    <p>
-                      Size: {item.selectedSize}
-                    </p>
-                  )}
+                  {item.selectedSize && <p>Size: {item.selectedSize}</p>}
 
-                  {item.selectedColor && (
-                    <p>
-                      Color: {item.selectedColor}
-                    </p>
-                  )}
-
+                  {item.selectedColor && <p>Color: {item.selectedColor}</p>}
                 </div>
 
                 <strong>
-                  $
-                  {(
-                    Number(item.price) *
-                    Number(item.quantity)
-                  ).toFixed(2)}
+                  ${(Number(item.price) * Number(item.quantity)).toFixed(2)}
                 </strong>
-
               </div>
             ))}
-
           </div>
 
           <div className="summary-divider" />
@@ -282,17 +246,13 @@ function Checkout() {
           <div className="summary-row">
             <span>Subtotal</span>
 
-            <span>
-              ${subtotal.toFixed(2)}
-            </span>
+            <span>${subtotal.toFixed(2)}</span>
           </div>
 
           <div className="summary-row">
             <span>Delivery</span>
 
-            <span>
-              ${deliveryFee.toFixed(2)}
-            </span>
+            <span>${deliveryFee.toFixed(2)}</span>
           </div>
 
           <div className="summary-divider" />
@@ -300,15 +260,10 @@ function Checkout() {
           <div className="summary-total">
             <strong>Total</strong>
 
-            <strong>
-              ${total.toFixed(2)}
-            </strong>
+            <strong>${total.toFixed(2)}</strong>
           </div>
-
         </aside>
-
       </div>
-
     </main>
   );
 }

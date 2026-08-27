@@ -1,23 +1,50 @@
-import './TopSelling.css';
+import "./TopSelling.css";
 
+import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
-import products from "../../data/products";
+import { getProducts } from "../../api/products";
 
 function TopSelling() {
-        const topProducts = products.slice(4,8);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-        return (
-            <section className="top-selling">
-                <h2>TOP SELLING</h2>
+  useEffect(() => {
+    getProducts()
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error loading top selling products:", error);
+        setLoading(false);
+      });
+  }, []);
 
-                <div className="product-grid">
-                    {topProducts.map((product) => (
-                        <ProductCard key={product.id} product={product}/>
-                    ))}
-                </div>
-                
-                <button className="view-all-button">View All</button>
-                </section>
-    );}
+  // Show products 2-3 as top selling
+  const topProducts = products.slice(0, 2);
 
-    export default TopSelling;
+  return (
+    <section className="top-selling">
+      <h2>TOP SELLING</h2>
+
+      {loading ? (
+        <p>Loading products...</p>
+      ) : (
+        <div className="product-grid">
+          {topProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
+        </div>
+      )}
+
+      <button className="view-all-button">
+        View All
+      </button>
+    </section>
+  );
+}
+
+export default TopSelling;

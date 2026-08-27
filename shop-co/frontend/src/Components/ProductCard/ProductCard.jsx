@@ -1,24 +1,25 @@
-import "./ProductCard.css";
+import './ProductCard.css';
+import { Link } from 'react-router-dom';
 
-function ProductCard({product}) {
-    return (
-        <article className="product-card">
-            <div className="product-image">
-                <img src="{product.image}" alt="{product.name}" />
-            </div>
-            
-            <h3>{product.name}</h3>
+function ProductCard({ product }) {
+  return (
+    <article className="product-card">
+      <Link to={`/product/${product.id}`} className="product-card-link">
+        <div className="product-image">
+          <img src={product.image} alt={product.name} />
+        </div>
 
-            <div className="product-rating">
-                <span>✦✦✦✦✦</span>
-                <span>{product.rating}/5</span>
-            </div>
+        <h3>{product.name}</h3>
 
-            <div className="product-price">
-                ${product.price}
-                </div>
-            </article>
-            );
-            }
+        <div className="product-rating">
+          <span>✦✦✦✦✦</span>
+          <span>{product.rating}/5</span>
+        </div>
 
-            export default ProductCard;
+        <div className="product-price">${product.price}</div>
+      </Link>
+    </article>
+  );
+}
+
+export default ProductCard;

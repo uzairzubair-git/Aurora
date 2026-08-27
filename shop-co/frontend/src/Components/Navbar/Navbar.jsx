@@ -1,4 +1,5 @@
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/context.jsx";
 import { FaOpencart } from "react-icons/fa6";
 
@@ -7,33 +8,60 @@ function Navbar() {
 
   const cartCount = cartItems.reduce(
     (total, item) => total + Number(item.quantity || 0),
-    0,
+    0
   );
 
   return (
     <nav className="navbar">
-      <button className="menu-button">☰</button>
 
-      <div className="navbar-logo">SHOP.Co</div>
+      {/* Mobile Menu */}
+      <button className="menu-button" type="button">
+        ☰
+      </button>
 
+      {/* Logo */}
+      <Link to="/" className="navbar-logo">
+        SHOP.Co
+      </Link>
+
+      {/* Navigation */}
       <div className="navbar-links">
-        <a href="#">Shop</a>
-        <a href="#">On Sale</a>
-        <a href="#">New Arrival</a>
-        <a href="#">Brands</a>
+        <Link to="/shop">Shop</Link>
+
+        <Link to="/shop">On Sale</Link>
+
+        <Link to="/">New Arrival</Link>
+
+        <Link to="/shop">Brands</Link>
       </div>
 
+      {/* Actions */}
       <div className="navbar-actions">
-        <input type="text" placeholder="Search For Products.." />
 
-        <div className="cart-icon">
+        {/* Search */}
+        <input
+          type="text"
+          placeholder="Search For Products..."
+        />
+
+        {/* Cart */}
+        <Link to="/cart" className="cart-icon">
           <FaOpencart />
 
-          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-        </div>
+          {cartCount > 0 && (
+            <span className="cart-count">
+              {cartCount}
+            </span>
+          )}
+        </Link>
 
-        <button>👤</button>
+        {/* Account */}
+        <Link to="/login" className="account-button">
+          👤
+        </Link>
+
       </div>
+
     </nav>
   );
 }

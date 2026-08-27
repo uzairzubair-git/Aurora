@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home/Home";
-import ProductDetails from "./Pages/ProductDetails/ProductDetails";
-import Category from "./Pages/Category/Category";
-import Cart from "./Pages/Cart/Cart";
-import Checkout from "./Pages/Checkout/Checkout";
-import OrderSuccess from "./Pages/OrderSuccess/OrderSuccess";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './Pages/Home/Home';
+import ProductDetails from './Pages/ProductDetails/ProductDetails';
+import Category from './Pages/Category/Category';
+import Cart from './Pages/Cart/Cart';
+import Checkout from './Pages/Checkout/Checkout';
+import OrderSuccess from './Pages/OrderSuccess/OrderSuccess';
 
 function App() {
   return (

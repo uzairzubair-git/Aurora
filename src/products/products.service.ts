@@ -1,8 +1,22 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+
+export interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  oldPrice?: number;
+  badge?: string;
+  rating?: number;
+  image: string;
+}
 
 @Injectable()
 export class ProductsService {
-  private products = [
+  private products: Product[] = [
     {
       id: 1,
       name: 'Classic T-Shirt',
@@ -48,11 +62,48 @@ export class ProductsService {
     );
 
     if (!product) {
-      throw new NotFoundException(
-        `Product with ID ${id} not found`,
-      );
+      throw new NotFoundException('Product not found');
     }
 
     return product;
+  }
+
+  create(productData: Omit<Product, 'id'>) {
+    const product: Product = {
+      id:
+        this.products.length > 0
+          ? Math.max(...this.products.map((p) => p.id)) + 1
+          : 1,
+      ...productData,
+    };
+
+    this.products.push(product);
+
+    return product;
+  }
+
+  update(id: number, productData: Partial<Omit<Product, 'id'>>) {
+    const product = this.findOne(id);
+
+    Object.assign(product, productData);
+
+    return product;
+  }
+
+  remove(id: number) {
+    const index = this.products.findIndex(
+      (product) => product.id === id,
+    );
+
+    if (index === -1) {
+      throw new NotFoundException('Product not found');
+    }
+
+    const deletedProduct = this.products.splice(index, 1)[0];
+
+    return {
+      message: 'Product deleted successfully',
+      product: deletedProduct,
+    };
   }
 }
