@@ -2,7 +2,7 @@
     width: 100%;
     margin: 70px auto;
     padding: 60px 5%;
-    
+
     background-color: cadetblue;
     border-radius: 25px;
 }
@@ -14,20 +14,37 @@
     margin-bottom: 45px;
 }
 
-dress-card{
+.dress-card{
     position: relative;
     overflow: hidden;
     border-radius: 25px;
-    background-color: aliceblue;
     padding: 30px;
     display: flex;
-    align-items:flex-start;
+    align-items: flex-start;
+
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+}
+
+.dress-card::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.35),
+        rgba(0, 0, 0, 0)
+    );
+    z-index: 1;
 }
 
 .dress-card h3{
     position: relative;
     z-index: 2;
     font-size: 28px;
+    color: #fff;
+    font-weight: 700;
 }
 
 .dress-grid{
@@ -40,31 +57,35 @@ dress-card{
 .casual{
     grid-column: 1;
     background-color: aquamarine;
+    background-image: url("https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=800&auto=format&fit=crop");
 }
 
 .formal{
     grid-column: 2;
-    background-color:lightblue
+    background-color: lightblue;
+    background-image: url("https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop");
 }
 
 .party{
     grid-column: 1;
-    background-color:wheat;
-} 
+    background-color: wheat;
+    background-image: url("https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop");
+}
 
 .gym{
     grid-column: 2;
-    background-color:lightsalmon;
+    background-color: lightsalmon;
+    background-image: url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop");
 }
 
 @media (max-width: 768px){
-    .dress-stylea{
+    .dress-styles{
         width: calc(100% - 40px);
         margin: 50px auto;
         padding: 40px 20px;
     }
 
-    .dress-stylea h2{
+    .dress-styles h2{
         font-size: 28px;
         margin-bottom: 30px;
     }

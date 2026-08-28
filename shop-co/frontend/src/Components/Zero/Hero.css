@@ -25,7 +25,8 @@
   line-height: 1.6;
 }
 
-.hero-content button {
+.hero-content button,
+.hero-content .hero-shop-button {
   width: 180px;
   padding: 14px 25px;
   border: none;
@@ -46,6 +47,12 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.hero-shop-button {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
 }
 
 @media (max-width: 768px) {

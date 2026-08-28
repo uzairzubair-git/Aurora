@@ -1,14 +1,18 @@
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-main">
+
+        {/* Brand */}
         <div className="footer-brand">
           <h2>SHOP.Co</h2>
 
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.lorem ipsum
+            Find clothes that match your style. Quality fashion
+            for everyday life.
           </p>
 
           <div className="social-icons">
@@ -19,41 +23,50 @@ function Footer() {
           </div>
         </div>
 
+        {/* Company */}
         <div className="footer-column">
           <h3>COMPANY</h3>
-          <a href="#">About</a>
-          <a href="#">Features</a>
-          <a href="#">Works</a>
-          <a href="#">Career</a>
+
+          <Link to="/">About</Link>
+          <Link to="/shop">Features</Link>
+          <Link to="/shop">Works</Link>
+          <Link to="/login">Career</Link>
         </div>
 
+        {/* Help */}
         <div className="footer-column">
           <h3>HELP</h3>
-          <a href="#">Customer Support</a>
-          <a href="#">Delivery Details </a>
-          <a href="#">Terms & Conditions</a>
-          <a href="#">Privacy Policy</a>
+
+          <Link to="/cart">Customer Support</Link>
+          <Link to="/checkout">Delivery Details</Link>
+          <Link to="/">Terms & Conditions</Link>
+          <Link to="/">Privacy Policy</Link>
         </div>
 
+        {/* FAQ */}
         <div className="footer-column">
           <h3>FAQ</h3>
-          <a href="#">Account</a>
-          <a href="#">Mange Deliveries</a>
-          <a href="#">Order Tracking</a>
-          <a href="#">Payments</a>
+
+          <Link to="/login">Account</Link>
+          <Link to="/checkout">Manage Deliveries</Link>
+          <Link to="/orders">Order Tracking</Link>
+          <Link to="/checkout">Payments</Link>
         </div>
 
+        {/* Resources */}
         <div className="footer-column">
           <h3>RESOURCES</h3>
-          <a href="#">Free Ebooks</a>
-          <a href="#">Development Tutorial</a>
-          <a href="#">How-to blog</a>
-          <a href="#">Affiliate Program</a>
+
+          <Link to="/shop">Free Ebooks</Link>
+          <Link to="/shop">Development Tutorial</Link>
+          <Link to="/shop">How-to Blog</Link>
+          <Link to="/shop">Affiliate Program</Link>
         </div>
+
       </div>
 
       <div className="footer-bottom">
-        <p>© 2023 SHOP.Co. All rights reserved.</p>
+        <p>© 2026 SHOP.Co. All rights reserved.</p>
 
         <div className="payment-methods">
           <span>VISA</span>

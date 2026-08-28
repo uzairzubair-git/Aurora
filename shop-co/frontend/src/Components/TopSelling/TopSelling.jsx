@@ -1,6 +1,7 @@
 import "./TopSelling.css";
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import { getProducts } from "../../api/products";
 
@@ -20,7 +21,6 @@ function TopSelling() {
       });
   }, []);
 
-  // Show products 2-3 as top selling
   const topProducts = products.slice(0, 2);
 
   return (
@@ -40,9 +40,12 @@ function TopSelling() {
         </div>
       )}
 
-      <button className="view-all-button">
+      <Link
+        to="/shop"
+        className="view-all-button"
+      >
         View All
-      </button>
+      </Link>
     </section>
   );
 }

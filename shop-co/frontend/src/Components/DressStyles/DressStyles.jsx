@@ -1,31 +1,43 @@
-import "./DressStyles.css"
+import { Link } from "react-router-dom";
+import "./DressStyles.css";
 
 function DressStyles() {
-    return (
-        <section className="dress-styles">
-            <h2>BROWSE BY DRESS STYLE </h2>
+  const styles = [
+    {
+      name: "Casual",
+      className: "casual",
+    },
+    {
+      name: "Formal",
+      className: "formal",
+    },
+    {
+      name: "Party",
+      className: "party",
+    },
+    {
+      name: "Gym",
+      className: "gym",
+    },
+  ];
 
-            <div className="dress-grid">
+  return (
+    <section className="dress-styles">
+      <h2>BROWSE BY DRESS STYLE</h2>
 
-                <div className="dress-card casual">
-                    <h3>Casual</h3>
-                </div>
-
-                <div className="dress-card formal">
-                    <h3>Formal</h3>
-                </div>
-
-                <div className="dress-card party">
-                    <h3>Party</h3>
-                </div>
-
-                <div className="dress-card gym">
-                    <h3>Gym</h3>
-                </div>
-
-            </div>
-        </section>
-    );
+      <div className="dress-grid">
+        {styles.map((style) => (
+          <Link
+            key={style.name}
+            to={`/shop?category=${encodeURIComponent(style.name)}`}
+            className={`dress-card ${style.className}`}
+          >
+            <h3>{style.name}</h3>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 export default DressStyles;

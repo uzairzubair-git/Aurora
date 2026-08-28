@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Hero.css";
 
 function Hero() {
@@ -17,7 +18,9 @@ function Hero() {
           garments, designed to bring out your individuality.
         </p>
 
-        <button>Shop Now</button>
+        <Link to="/shop" className="hero-shop-button">
+          Shop Now
+        </Link>
       </div>
 
       <div className="hero-image">

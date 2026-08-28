@@ -3,8 +3,9 @@ import "./OrderSuccess.css";
 
 function OrderSuccess() {
   return (
-    <main className="order-success-page">
-      <div className="order-success-card">
+    <main className="order-success">
+      <div className="success-box">
+
         <div className="success-icon">
           ✓
         </div>
@@ -12,19 +13,20 @@ function OrderSuccess() {
         <h1>Order Placed Successfully!</h1>
 
         <p>
-          Thank you for your order. Your order has been received
-          and is being processed.
+          Thank you for your purchase. Your order has been
+          successfully placed.
         </p>
 
         <div className="success-actions">
-          <Link to="/shop" className="continue-shopping-button">
+          <Link to="/shop">
             Continue Shopping
           </Link>
 
-          <Link to="/" className="home-button">
+          <Link to="/">
             Back to Home
           </Link>
         </div>
+
       </div>
     </main>
   );

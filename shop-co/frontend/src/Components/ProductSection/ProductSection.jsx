@@ -1,6 +1,7 @@
 import "./ProductSection.css";
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import { getProducts } from "../../api/products";
 
@@ -20,6 +21,9 @@ function ProductSection() {
       });
   }, []);
 
+  // Show only the first 4 products on Home
+  const newArrivals = products.slice(0, 4);
+
   return (
     <section className="product-section">
       <h2>NEW ARRIVALS</h2>
@@ -28,7 +32,7 @@ function ProductSection() {
         <p>Loading products...</p>
       ) : (
         <div className="product-grid">
-          {products.map((product) => (
+          {newArrivals.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
@@ -37,9 +41,12 @@ function ProductSection() {
         </div>
       )}
 
-      <button className="view-all-button">
+      <Link
+        to="/shop"
+        className="view-all-button"
+      >
         View All
-      </button>
+      </Link>
     </section>
   );
 }

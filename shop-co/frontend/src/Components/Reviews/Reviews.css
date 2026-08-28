@@ -36,11 +36,11 @@
     gap: 15px;
 }
 
-.revies-card{
+.review-card{
     border:1px solid #333;
     border-radius: 15px;
     padding: 25px;
-    
+
     min-height: 190px;
 }
 
@@ -51,9 +51,9 @@
     margin-bottom: 15px;
 }
 
-.revew-card h3{
+.review-card h3{
     font-size: 16px;
-    
+
     margin-bottom: 10px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .review-card p{
-    color: greenyellow;
+    color: #555;
 
     font-size: 14px;
     line-height: 1.6;
@@ -80,7 +80,7 @@
     .reviews{
         width: calc(100% - 40px);
     }
-    
+
     .reviews-header h2{
         font-size: 24px;
     }
@@ -88,12 +88,12 @@
     .reviews-container{
         display: flex;
 
-        oveerflow-x:auto;
+        overflow-x: auto;
 
         scroll-snap-type: x mandatory;
     }
 
-    .reviews-card{
+    .review-card{
         min-width:85%;
         scroll-snap-align: start;
     }
