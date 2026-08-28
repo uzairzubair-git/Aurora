@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000";
+const API_URL = "https://shop-co-backend-mu.vercel.app";
 
 export async function getProducts() {
   const response = await fetch(`${API_URL}/products`);
